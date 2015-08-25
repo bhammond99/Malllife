@@ -1,0 +1,69 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <%= image_tag @mall.image.url(:medium) %>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>Name:</strong></td>
+                  <td><%= @mall.name %></td>
+                </tr>
+                <tr>
+                  <td><strong>open:</strong></td>
+                  <td><%= @mall.open %></td>
+                </tr>
+                <tr>
+                  <td><strong>Closed:</strong></td>
+                  <td><%= @mall.close %></td>
+                </tr> 
+                <tr>
+                  <td><strong>Address:</strong></td>
+                  <td><%= @mall.address %></td>
+                </tr> 
+            	</tbody>
+            </table>
+          </div>
+        </div>
+        <% if user_signed_in? %>
+        <div class="col-md-7 col-md-offset-1">
+        	<div class="table-responsive">
+            <table class="table">
+              <tbody>
+			        	<h1> Stores </h1>
+			        		<tr>
+	                  <td><strong>Store</strong></td>
+	                  <td><strong>Category</strong></td>
+	                  <td><strong>Daily Deal</strong></td>
+	                	</tr>
+	                	 <% if @stores.blank? %>
+                     <h3>Add your favorite stores to your mall profile to track bargains.</h3>
+                     <%= link_to "Add a store", new_mall_store_path(@mall), class: "btn btn-danger" %>
+                    <% else %>
+			        		<% @stores.each do |store| %>
+				        		<tr>
+	                  <td><%= store.name %></td>
+	                  <td><%= store.category %></td>
+	                  <td><%= link_to store.sales, new_contact_path %></td>
+	                	</tr>
+	                <% end %>	
+			        		<% end %>
+			        </tbody>
+			      </table>
+			    </div>
+			  </div> 
+        <% end %> 
+			</div>
+		</div>
+	</div>
+</div>			    	
+			        		
+<% if @mall.user == current_user -%>
+<div class="btn-group">
+<%= link_to 'Edit', edit_mall_path(@mall), class: "btn btn-default" %>
+<%= link_to 'Delete', @mall, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+  </div>
+<% end %>        			
+
+
